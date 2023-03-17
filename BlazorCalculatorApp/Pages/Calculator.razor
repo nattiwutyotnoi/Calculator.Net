@@ -1,0 +1,70 @@
+﻿@page "/calculator"
+
+<PageTitle>Calculator</PageTitle>
+
+<h3>Calculator</h3>
+    <div class="row">
+        <div class="col-12 col-md-4">
+            <div class="form-group">
+                <lable>ตัวเลขที่ 1</lable>
+                <input class="form-control" type="number" id="number1" name="number1" @bind="number1" />
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 col-md-4">
+            <div class="form-group">
+                <lable>ตัวเลขที่ 2</lable>
+                <input class="form-control" type="number" id="number2" name="number2" @bind="number2"/>
+            </div>
+        </div>
+    </div>
+    <br />
+    <div>
+        <button class="btn btn-primary" type="submit" id="add" value="add" name="symbol" @onclick="AddCalc">+</button>
+        <button class="btn btn-danger" type="submit" id="sub" value="sub" name="symbol" @onclick="SubCalc">-</button>
+        <button class="btn btn-warning" type="submit" id="mul" value="mul" name="symbol" @onclick="MulCalc">*</button>
+        <button class="btn btn-success" type="submit" id="div" value="div" name="symbol" @onclick="DivCalc">/</button>
+    </div>
+<br />
+@{
+    int i = 1;
+    @foreach (var cal in list)
+    {
+        <lable>ครั้งที่ @i คือ @cal.number1 @cal.symbol @cal.number2 = @cal.total</lable><br />
+        ++i;
+    }
+}
+
+@code {
+    private List<Calc> list = new();
+    private int number1;
+    private int number2;
+    private string symbol;
+    private int total;
+
+    private void AddCalc()
+    {
+        symbol = "+";
+        total = number1 + number2;
+        list.Add(new Calc { number1 = number1, number2 = number2, symbol = symbol, total = total });
+    }
+    private void SubCalc()
+    {
+        symbol = "-";
+        total = number1 - number2;
+        list.Add(new Calc { number1 = number1, number2 = number2, symbol = symbol, total = total });
+    }
+     private void MulCalc()
+    {
+        symbol = "*";
+        total = number1 * number2;
+        list.Add(new Calc { number1 = number1, number2 = number2, symbol = symbol, total = total });
+    }
+    private void DivCalc()
+    {
+        symbol = "/";
+        total = number1 / number2;
+        list.Add(new Calc { number1 = number1, number2 = number2, symbol = symbol, total = total });
+    }
+}
